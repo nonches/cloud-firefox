@@ -1,0 +1,43 @@
+{
+  "name": "Cloud Firefox VPS",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "version": "latest"
+    }
+  },
+  "postCreateCommand": "apt-get update && apt-get install -y firefox-esr && echo 'Firefox installed successfully'",
+  "forwardPorts": [6080, 5900],
+  "portsAttributes": {
+    "6080": {
+      "label": "Desktop Lite Web UI",
+      "onAutoForward": "notify"
+    },
+    "5900": {
+      "label": "VNC Server",
+      "onAutoForward": "ignore"
+    }
+  },
+  "remoteEnv": {
+    "DISPLAY": ":1",
+    "TERM": "xterm-256color"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": []
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,readonly"
+  ],
+  "remoteUser": "vscode",
+  "onCreateCommand": "sudo chown -R vscode:vscode /home/vscode",
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "2gb",
+    "storage": "5gb"
+  }
+}
