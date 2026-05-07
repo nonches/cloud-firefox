@@ -3,21 +3,23 @@
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
   "features": {
     "ghcr.io/devcontainers/features/desktop-lite:1": {
-      "version": "latest"
+      "version": "latest",
+      "password": "code space"
     }
   },
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y firefox-esr && mkdir -p /home/vscode/.config/xfce4/autostart && echo -e '[Desktop Entry]\nType=Application\nExec=firefox-esr --kiosk\n' > /home/vscode/.config/xfce4/autostart/firefox.desktop && echo 'Firefox installed and configured to start in kiosk mode'",
-  "forwardPorts": [6080, 5900],
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y software-properties-common && sudo add-apt-repository ppa:mozillateam/ppa -y && echo -e 'Package: *\\nPin: release o=LP-PPA-mozillateam\\nPin-Priority: 1001' | sudo tee /etc/apt/preferences.d/mozilla-firefox && sudo apt-get update && sudo apt-get install -y firefox-esr libdbus-glib-1-2 && mkdir -p /home/vscode/.config/xfce4/autostart && echo -e '[Desktop Entry]\\nType=Application\\nExec=firefox-esr --no-sandbox\\n' > /home/vscode/.config/xfce4/autostart/firefox.desktop && mkdir -p /workspaces/cloud-firefox/.mozilla",
+  "forwardPorts": [6080],
   "portsAttributes": {
     "6080": {
-      "label": "Desktop Lite Web UI",
+      "label": "Firefox Desktop",
       "onAutoForward": "openBrowser",
       "visibility": "public"
     }
   },
   "remoteEnv": {
     "DISPLAY": ":1",
-    "TERM": "xterm-256color"
+    "MOZ_FAKE_NO_SANDBOX": "1",
+    "HOME": "/workspaces/cloud-firefox"
   },
   "remoteUser": "vscode"
 }

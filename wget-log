@@ -1,0 +1,16 @@
+--2026-05-07 03:40:05--  https://mozilla.org/
+Resolving mozilla.org (mozilla.org)... 35.190.14.201, 2600:1901:0:c197::
+Connecting to mozilla.org (mozilla.org)|35.190.14.201|:443... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://www.mozilla.org/ [following]
+--2026-05-07 03:40:06--  https://www.mozilla.org/
+Resolving www.mozilla.org (www.mozilla.org)... 146.75.31.19, 2a04:4e42:77::787
+Connecting to www.mozilla.org (www.mozilla.org)|146.75.31.19|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 48515 (47K) [text/html]
+Saving to: ‘STDOUT’
+
+-                       0%[                       ]       0  --.-KB/s               -                     100%[======================>]  47.38K  --.-KB/s    in 0.001s  
+
+2026-05-07 03:40:06 (39.7 MB/s) - written to stdout [48515/48515]
+
