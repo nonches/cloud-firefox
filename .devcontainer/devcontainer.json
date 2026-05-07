@@ -1,13 +1,17 @@
 {
   "name": "Cloud Firefox VPS",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "image": "ubuntu:22.04",
   "features": {
     "ghcr.io/devcontainers/features/desktop-lite:1": {
       "version": "latest",
       "password": "code space"
     }
   },
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y software-properties-common && sudo add-apt-repository ppa:mozillateam/ppa -y && echo -e 'Package: *\\nPin: release o=LP-PPA-mozillateam\\nPin-Priority: 1001' | sudo tee /etc/apt/preferences.d/mozilla-firefox && sudo apt-get update && sudo apt-get install -y firefox-esr libdbus-glib-1-2 && mkdir -p /home/vscode/.config/xfce4/autostart && echo -e '[Desktop Entry]\\nType=Application\\nExec=firefox-esr --no-sandbox\\n' > /home/vscode/.config/xfce4/autostart/firefox.desktop && mkdir -p /workspaces/cloud-firefox/.mozilla",
+  "containerEnv": {
+    "VNC_RESOLUTION": "1280x720",
+    "VNC_COLORDPT": "8"
+  },
+  "postCreateCommand": "apt-get update && apt-get install -y sudo wget libdbus-glib-1-2 libgtk-3-0 libasound2 && wget -O firefox.tar.bz2 'https://mozilla.org' && tar xjf firefox.tar.bz2 -C /opt/ && ln -sf /opt/firefox/firefox /usr/bin/firefox-esr && mkdir -p /home/vscode/.config/xfce4/autostart && echo -e '[Desktop Entry]\\nType=Application\\nExec=firefox-esr --no-sandbox\\n' > /home/vscode/.config/xfce4/autostart/firefox.desktop",
   "forwardPorts": [6080],
   "portsAttributes": {
     "6080": {
@@ -18,8 +22,7 @@
   },
   "remoteEnv": {
     "DISPLAY": ":1",
-    "MOZ_FAKE_NO_SANDBOX": "1",
-    "HOME": "/workspaces/cloud-firefox"
+    "MOZ_FAKE_NO_SANDBOX": "1"
   },
   "remoteUser": "vscode"
 }
